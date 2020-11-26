@@ -1,16 +1,49 @@
+RED=(255,0,0)
+LIME=(0,255,0)
+BLUE=(0,0,255)
+YELLOW=(255,255,0)
+CYAN=(127,255,212)
+
+HOWMANYFISH = 500
 import random
-HOWMANYFISH = 50
 
 def colorgen():
-    red=random.randint(0,255)
-    green=random.randint(0,255)
-    blue=random.randint(0,255)
-    #check that fish doesnt mix with seawater color
-    if (255-blue < 5 and green > 175 and green < 225 and red < 25):
-        print("varafisu. Color: Spring green (0,255,127)")
-        return (0,255,127)
-    newtuple = (red, green, blue)
-    return newtuple
+    color=random.randint(1,5)
+    if (color==1):
+        return RED
+    elif (color==2):
+        return LIME
+    elif (color==3):
+        return BLUE
+    elif (color==4):
+        return YELLOW
+    elif (color==5):
+        return CYAN
+    else:
+        print("shit happens...")
+        exit("shit happens")
+
+## refine a new list of lists based on fish color
+##stackoverflow.com/questions/17620537/making-an-array-of-sets-in-python
+def sort_fish_by_color(fishes):
+    sorted = [set() for i in range(5)]
+    for fish in fishes:
+        if fish.color == RED:
+            sorted[0].add(fish)
+        elif fish.color == LIME:
+            sorted[1].add(fish)            
+        elif fish.color == BLUE:
+            sorted[2].add(fish)
+        elif fish.color == YELLOW:
+            sorted[3].add(fish)
+        elif fish.color == CYAN:
+            sorted[4].add(fish)
+        else:
+            print("no such color, what went wrong...")
+    return sorted
+    #amount=len(sorted[0])
+    #print("number of red: {n}".format(n=amount))
+            
 
 class Fish(object):
     _registry = set()
@@ -25,13 +58,14 @@ class Fish(object):
 def create_fish(amount):
     for x in range(amount):
         #fish is assigned serial number, which square on grid 0-49, and random color
-        summon_fish = Fish(x+1, random.randint(15, 60), random.randint(10,50), colorgen())
+        summon_fish = Fish(x+1, random.randint(10, 125), random.randint(5,125), colorgen())
     
-
 create_fish(HOWMANYFISH)
+all_fish=Fish._registry
+color_sorted=sort_fish_by_color(Fish._registry)
 
 import show
-show.main(Fish._registry)
+show.main(all_fish, color_sorted)
 
 '''
 

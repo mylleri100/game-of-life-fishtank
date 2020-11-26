@@ -1,15 +1,14 @@
 ## produces visual of Fishtank
 
-import random
+import swim
 import pygame
 import os
 import time
 
 TITLE = "Fish Tank"
-WINDOWS_LOCATION = '100,100'
 WIDTH = 800
 HEIGHT = 700
-FPS = 5
+FPS = 100
 
 SEAWATER = (0, 200, 255)
 BLACK = (0, 195, 250)
@@ -17,35 +16,26 @@ BLACK = (0, 195, 250)
 LINES=200
 COLUMNS=200
 
-SIZE=10
+SIZE=6
 MARGIN= 2
 
-def swim_nemo_swim(fishes):
-    for fish in fishes:
-        dir=random.randint(1,4)
-        if(dir==1):
-            fish.x+=2    #right
-        elif(dir==2):
-            fish.x-=2    #left
-        elif(dir==3):
-            fish.y+=2    #up
-        elif(dir==4):
-            fish.y-=2    #down
-        else:
-            exit("shithappens")
 
 ## grid code
-def main(fishes):
+def main(fishes, friends):
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption(TITLE)
     clock = pygame.time.Clock()
     running = True
     cell_size=SIZE
+    sp=15
     
     while running:
-    
-        clock.tick(FPS)
+        if(sp<0):  
+            clock.tick(FPS)
+        else:
+            clock.tick(5)
+            sp-=1
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -66,7 +56,9 @@ def main(fishes):
         # *after* drawing everything, flip the display
         pygame.display.flip()
         #move all little fish each FPS
-        swim_nemo_swim(fishes)
+        swim.meetfriends(friends)
+        swim.swim_nemo_swim(fishes)
+        
         
         
     pygame.quit()
