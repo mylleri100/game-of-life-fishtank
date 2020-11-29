@@ -1,49 +1,16 @@
-RED=(255,0,0)
-LIME=(0,255,0)
-BLUE=(0,0,255)
-YELLOW=(255,255,0)
-CYAN=(127,255,212)
-
+#grid info (passed to show-module)
+GRID_SIZE=200
+FISH_SIZE=6
 HOWMANYFISH = 500
-import random
 
-def colorgen():
-    color=random.randint(1,5)
-    if (color==1):
-        return RED
-    elif (color==2):
-        return LIME
-    elif (color==3):
-        return BLUE
-    elif (color==4):
-        return YELLOW
-    elif (color==5):
-        return CYAN
-    else:
-        print("shit happens...")
-        exit("shit happens")
+#system modules
+from random import randint
+from time import sleep
 
-## refine a new list of lists based on fish color
-##stackoverflow.com/questions/17620537/making-an-array-of-sets-in-python
-def sort_fish_by_color(fishes):
-    sorted = [set() for i in range(5)]
-    for fish in fishes:
-        if fish.color == RED:
-            sorted[0].add(fish)
-        elif fish.color == LIME:
-            sorted[1].add(fish)            
-        elif fish.color == BLUE:
-            sorted[2].add(fish)
-        elif fish.color == YELLOW:
-            sorted[3].add(fish)
-        elif fish.color == CYAN:
-            sorted[4].add(fish)
-        else:
-            print("no such color, what went wrong...")
-    return sorted
-    #amount=len(sorted[0])
-    #print("number of red: {n}".format(n=amount))
-            
+#project modules
+import swim
+import color1
+         
 
 class Fish(object):
     _registry = set()
@@ -57,23 +24,20 @@ class Fish(object):
         
 def create_fish(amount):
     for x in range(amount):
-        #fish is assigned serial number, which square on grid 0-49, and random color
-        summon_fish = Fish(x+1, random.randint(10, 125), random.randint(5,125), colorgen())
+        #fish is assigned serial number, location on grid 0-49, and random color
+        summon_fish = Fish(x+1, randint(10, 125), randint(5,125), color1.colorgen())
     
 create_fish(HOWMANYFISH)
-all_fish=Fish._registry
-color_sorted=sort_fish_by_color(Fish._registry)
+#list of all fish
+fishes=Fish._registry
+#list of lists with same color fish a.k.a friends
+friends=color1.sort_fish_by_color(Fish._registry)
 
 import show
-show.main(all_fish, color_sorted)
-
-'''
-
-for p in Fish._registry:
-    print(p)
-
-    print("fisu: {ser}, väritys: {color} !!!".format(ser=p.name, color=p.color))
-    print("\n goodjobdickboy!")
-
-
-'''
+screen=show.init_tank(fishes, GRID_SIZE, FISH_SIZE)
+while(True):
+    sleep(0.1)
+    swim.meetfriends(friends)
+    swim.swim_nemo_swim(fishes)
+    show.run_tank(screen,fishes, GRID_SIZE, FISH_SIZE)
+    
