@@ -1,17 +1,19 @@
 ## produces visual of Fishtank
 
 import pygame
+import os
 
 TITLE = "Fish Tank"
-WIDTH = 800
-HEIGHT = 700
+WIDTH = 900
+HEIGHT = 900
 FPS = 100
-SEAWATER = (0, 200, 255)
+SEAWATER = (255, 255, 255)
 #BLACK = (0, 195, 250)   
 BLACK = (0, 0, 0)   
 
 ## grid code
 def init_tank(fishes, grid_size, cell_size):
+    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (525,25)
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption(TITLE)
