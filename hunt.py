@@ -1,32 +1,58 @@
 import random
 import math
 
+#move single lifeform
+def move(guy, dir):        
+        if(dir=='e'):
+            guy.x+=1    #east
+        elif(dir=='w'):
+            guy.x-=1    #west
+        elif(dir=='s'):
+            guy.y+=1    #south
+        elif(dir=='n'):
+            guy.y-=1    #north
+        elif(dir=='se'):
+            guy.y+=1    #se
+            guy.x+=1
+        elif(dir=='ne'):
+            guy.y-=1    #ne
+            guy.x+=1
+        elif(dir=='nw'):
+            guy.y-=1    #nw
+            guy.x-=1
+        elif(dir=='sw'):
+            guy.y+=1    #sw
+            guy.x-=1
+        else:
+            exit("shithappens")
+
 #random movement
-def move(guys, speed):
+def random_move(guys):
     for guy in guys:
         dir=random.randint(1,8)
         if(dir==1):
-            guy.x+=speed    #east
+            guy.x+=1    #east
         elif(dir==2):
-            guy.x-=speed    #west
+            guy.x-=1    #west
         elif(dir==3):
-            guy.y+=speed    #north
+            guy.y+=1    #south
         elif(dir==4):
-            guy.y-=speed    #south
+            guy.y-=1    #north
         elif(dir==5):
-            guy.y+=speed    #ne
-            guy.x+=speed
+            guy.y+=1    #se
+            guy.x+=1
         elif(dir==6):
-            guy.y-=speed    #se
-            guy.x+=speed
+            guy.y-=1    #ne
+            guy.x+=1
         elif(dir==7):
-            guy.y-=speed    #sw
-            guy.x-=speed
+            guy.y-=1    #nw
+            guy.x-=1
         elif(dir==8):
-            guy.y+=speed    #nw
-            guy.x-=speed
+            guy.y+=1    #sw
+            guy.x-=1
         else:
             exit("shithappens")
+'''
 
 #fishes here is list of lists (of fish objects)
 #returns the coordinates for closest fish friend (same color)
@@ -53,4 +79,4 @@ def meetfriends(fishes):
                 #print("my color is: {c} and my friend {p} km away".format(p=shortest,c=fish.color))
                     
                     
-
+'''

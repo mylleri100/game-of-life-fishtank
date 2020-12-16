@@ -2,6 +2,7 @@
 
 import pygame
 import os
+import sys
 
 TITLE = "Fish Tank"
 WIDTH = 900
@@ -13,7 +14,7 @@ BLACK = (0, 0, 0)
 
 ## grid code
 def init_tank(fishes, grid_size, cell_size):
-    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (525,25)
+    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (825,25)
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption(TITLE)
@@ -33,6 +34,11 @@ def init_tank(fishes, grid_size, cell_size):
     return screen
 
 def run_tank(screen, fishes, grid_size, cell_size):
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pygame.quit()
+            sys.exit(0)
+
     screen.fill(SEAWATER)
     for line in range(grid_size):
         pos = line * cell_size
